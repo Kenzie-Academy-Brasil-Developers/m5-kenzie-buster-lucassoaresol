@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
 
 MY_APPS = [
     "accounts",
+    "movies",
 ]
 
 DJANGO_APPS = [
