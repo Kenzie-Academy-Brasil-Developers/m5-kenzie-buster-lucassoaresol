@@ -2,7 +2,7 @@ from rest_framework import permissions
 from rest_framework.views import Request, View
 
 
-class IsUserEmployee(permissions.BasePermission):
+class IsUserEmployeeOrReadOnly(permissions.BasePermission):
     def has_permission(self, req: Request, view: View):
         return (
             req.method in permissions.SAFE_METHODS

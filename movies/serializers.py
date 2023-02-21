@@ -15,7 +15,11 @@ class MovieSerializer(serializers.Serializer):
         default=RatingMovie.DEFAULT,
     )
     synopsis = serializers.CharField(allow_null=True, default=None)
-    added_by = serializers.SlugRelatedField(read_only=True, slug_field="email")
+    added_by = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field="email",
+        source="user",
+    )
 
     def create(self, validated_data: dict) -> Movie:
-        return Movie.objects.create_user(**validated_data)
+        return Movie.objects.create(**validated_data)
