@@ -1,5 +1,6 @@
 from rest_framework import permissions
 from rest_framework.views import Request, View
+from .models import User
 
 
 class IsUserEmployeeOrReadOnly(permissions.BasePermission):
@@ -7,5 +8,10 @@ class IsUserEmployeeOrReadOnly(permissions.BasePermission):
         return (
             req.method in permissions.SAFE_METHODS
             or req.user.is_authenticated
-            and req.user.is_superuser
+            and req.user.is_employee
         )
+
+
+class IsUserOwnerOrAdm(permissions.BasePermission):
+    def has_object_permission(self, req: Request, view: View, obj: User):
+        return obj == req.user or req.user.is_employee
