@@ -20,5 +20,30 @@ class Movie(models.Model):
     synopsis = models.TextField(null=True)
 
     user = models.ForeignKey(
-        "accounts.User", on_delete=models.CASCADE, related_name="movies"
+        "accounts.User",
+        on_delete=models.CASCADE,
+        related_name="movies",
     )
+
+    orders = models.ManyToManyField(
+        "accounts.User",
+        through="movies.MovieOrder",
+        related_name="order_movies",
+    )
+
+
+class MovieOrder(models.Model):
+    movie = models.ForeignKey(
+        "movies.Movie",
+        on_delete=models.CASCADE,
+        related_name="movie_orders",
+    )
+
+    user = models.ForeignKey(
+        "accounts.User",
+        on_delete=models.CASCADE,
+        related_name="user_movie_orders",
+    )
+
+    buyed_at = models.DateTimeField(auto_now_add=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
