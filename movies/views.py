@@ -3,7 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-from accounts.permissions import IsUserEmployeeOrReadOnly
+from users.permissions import IsUserEmployeeOrReadOnly
 from .serializers import MovieSerializer, MovieOrderSerializer
 from .models import Movie
 
