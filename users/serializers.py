@@ -28,9 +28,11 @@ class UserSerializer(serializers.Serializer):
     last_name = serializers.CharField(max_length=50)
     password = serializers.CharField(max_length=128, write_only=True)
     is_employee = serializers.BooleanField(allow_null=True, default=False)
-    is_superuser = serializers.BooleanField(allow_null=True, default=False)
+    is_superuser = serializers.BooleanField(read_only=True)
 
     def create(self, validated_data: dict) -> User:
+        if validated_data["is_employee"]:
+            return User.objects.create_superuser(**validated_data)
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:

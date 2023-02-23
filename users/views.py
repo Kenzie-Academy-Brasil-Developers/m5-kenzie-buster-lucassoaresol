@@ -9,8 +9,6 @@ from .serializers import UserSerializer
 
 class UserView(APIView):
     def post(self, req: Request) -> Response:
-        req.data["is_superuser"] = req.data.get("is_employee", False)
-
         serializer = UserSerializer(data=req.data)
 
         serializer.is_valid(raise_exception=True)
